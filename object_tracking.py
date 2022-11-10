@@ -37,6 +37,17 @@ def create_frames():
     print(f"Splitting frames... {frame_number}/{total_video_frames}")
 
 
+def add_line(img, x1, y1, x2, y2):
+    point = Image.new(mode='RGB', size=(1, 1), color=(0, 255, 0))
+
+    for iy in range(y2 - y1 + 1):
+        y = y1 + iy
+        for ix in range(x2 - x1 + 1):
+            x = x1 + ix
+            img.paste(point.resize((2,2)), [x, y])
+    return img
+
+
 if __name__ == "__main__":
     # temporary folder for split frames
     try:
@@ -64,9 +75,13 @@ if __name__ == "__main__":
 
     for i in range(len(frames)):
         pimage = Image.open(f'/tmp/frames/frame{i}.jpg')
-        predicted = scanner.scanImage(pimage)
+        found_points = scanner.scanImage(pimage)
 
-        pimage.paste(point, predicted)
+        # draw box around object
+        pimage = add_line(pimage, found_points[0][0], found_points[0][1], found_points[1][0], found_points[0][1])
+        pimage = add_line(pimage, found_points[0][0], found_points[1][1], found_points[1][0], found_points[1][1])
+        pimage = add_line(pimage, found_points[0][0], found_points[0][1], found_points[0][0], found_points[1][1])
+        pimage = add_line(pimage, found_points[1][0], found_points[0][1], found_points[1][0], found_points[1][1])
         pimage.save(f'/tmp/newframes/frame{i}.jpg')
         
     os.system(f"cd /tmp/newframes && ffmpeg -r 60 -i frame%d.jpg {save_dir}/tracked.mp4 2> /dev/null")
