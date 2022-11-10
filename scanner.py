@@ -7,10 +7,9 @@ from fastai.vision.core import PILImage
 from numpy import unravel_index
 from PIL import Image
 
+learn = fastbook.load_learner("model.pkl")
 
 def predict(image):
-    learn = fastbook.load_learner("model.pkl")
-
     pred_class, pred_idx, probabilities = learn.predict(image)
     return probabilities[1]
 
