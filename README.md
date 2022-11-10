@@ -1,4 +1,4 @@
-# Object Detection
+# Neural Networks Class
 Simple object detection using ai, for a class.
 
 To use, run main.py with the video as the first argument and the save directory as the second argument:
