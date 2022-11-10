@@ -10,8 +10,8 @@ if __name__ == "__main__":
         os.mkdir('/tmp/genframes')
     except FileExistsError:
         print("/tmp/genframes exists; overwriting it")
-        shutil.rmtree('/tmp/frames')
-        os.mkdir('/tmp/frames')
+        shutil.rmtree('/tmp/genframes')
+        os.mkdir('/tmp/genframes')
 
     frames = 224 # this is an arbitrary number
     save_dir = sys.argv[1]

@@ -69,7 +69,7 @@ if __name__ == "__main__":
         pimage.paste(point, predicted)
         pimage.save(f'/tmp/newframes/frame{i}.jpg')
         
-    os.system(f"cd /tmp/newframes && ffmpeg -r 10 -i frame%d.jpg {save_dir}/tracked.mp4 2> /dev/null")
+    os.system(f"cd /tmp/newframes && ffmpeg -r 60 -i frame%d.jpg {save_dir}/tracked.mp4 2> /dev/null")
     print(f"Saved video to {save_dir}")
 
     shutil.rmtree('/tmp/frames')
