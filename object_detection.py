@@ -7,7 +7,9 @@ import fastbook
 from fastai.vision.core import PILImage
 from PIL import Image, ImageDraw, ImageFont
 
+
 learn = fastbook.load_learner("model.pkl") # load model
+
 
 def create_frames():
     video_path = sys.argv[1]
@@ -32,7 +34,8 @@ def create_frames():
 
         frame_number += 1
     
-    print("Splitting frames... done")
+    print(f"Splitting frames... {frame_number}/{total_video_frames}")
+
 
 def predict(image):
     """Predict if an image has a red or blue square"""
@@ -57,15 +60,12 @@ if __name__ == "__main__":
     
     try:
         shutil.rmtree('/tmp/newframes')
+        os.mkdir('/tmp/newframes')
     except FileNotFoundError:
-        print("/tmp/newframes not found; generating it")
-
-    os.mkdir('/tmp/newframes')
+        os.mkdir('/tmp/newframes')
 
     frames = os.listdir('/tmp/frames')
-
     save_dir = sys.argv[2]
-    print(f"Saving video to {save_dir}")
 
     font = ImageFont.truetype('Arial.ttf')
 
@@ -84,7 +84,7 @@ if __name__ == "__main__":
 
         pimage.save(f'/tmp/newframes/frame{i}.jpg')
     
-    os.system(f"cd /tmp/newframes && ffmpeg -r 60 -i frame%d.jpg {save_dir}/predicted.mp4") # save the final video
+    os.system(f"cd /tmp/newframes && ffmpeg -r 60 -i frame%d.jpg {save_dir}/detected.mp4 2> /dev/null") # save the final video
     print(f"Saved video to {save_dir}")
 
     shutil.rmtree('/tmp/frames')
