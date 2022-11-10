@@ -19,7 +19,7 @@ The above command will save a detected video file to my Desktop, as 'detected.mp
 
 Similarly,
 ```py
-python object-detection.py "/Users/kavi/Desktop/sample_video.mp4" "/Users/kavi/Desktop" # will save the file to my Desktop, as 'detected.mp4'
+python object-detection.py "/Users/kavi/Desktop/sample_video.mp4" "/Users/kavi/Desktop"
 ```
 will save a tracked video file to my Desktop, as 'tracked.mp4'
 
